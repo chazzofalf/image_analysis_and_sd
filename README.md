@@ -20,6 +20,31 @@ This tool leverages Ollama models to describe images and generate stable diffusi
     *   `<image_path>`: Path to the input image.
     *   `<output_file>`: Path to the output file (summary will be written to this file, and stable diffusion parameters will be written to `<output_file>.sd.txt`).
 
+## Installation
+
+1.  Clone the repository:
+    ```bash
+    git clone [repository URL]
+    cd [repository directory]
+    ```
+2.  Create a virtual environment:
+    ```bash
+    python3 -m venv venv
+    ```
+3.  Activate the virtual environment:
+    *   **Linux/macOS:**
+        ```bash
+        source venv/bin/activate
+        ```
+    *   **Windows:**
+        ```bash
+        .\venv\Scripts\activate
+        ```
+4.  Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
 ## Example
 
 Here's an example using the `Scout.jpg` image:
