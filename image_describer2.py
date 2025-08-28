@@ -20,7 +20,7 @@ def describe_image(image_path, model_name):
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         description = result.stdout
         
-        return description
+        return f"### {model_name}'s take on the image:\n\n{description}"
 
     except FileNotFoundError:
         return f"Error: Image file not found at {image_path}"
