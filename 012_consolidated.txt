@@ -1,0 +1,11 @@
+!!!ERROR!!!: Error: unknown shorthand flag: 'i' in -i
+
+!!!ERROR!!!: Error: unknown shorthand flag: 'i' in -i
+
+!!!ERROR!!!: Error: unknown shorthand flag: 'i' in -i
+
+!!!ERROR!!!: Error: unknown shorthand flag: 'i' in -i
+
+!!!ERROR!!!: Error: unknown shorthand flag: 'i' in -i
+
+!!!ERROR!!!: Error: unknown shorthand flag: 'i' in -i
