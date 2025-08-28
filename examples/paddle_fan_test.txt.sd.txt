@@ -1,0 +1,67 @@
+Thinking...
+We need to provide info for recreating in InvokeAI: Positive Prompt, Negative Prompt, Step Count, CFG Scale, Suggested Image Dimensions, best stable diffusion model and best scheduler. Use the exhaustive description as prompt. Provide concise but detailed prompts. Let's craft.
+...done thinking.
+
+**InvokeAI – “High‑Tech Spin‑Sensing Table‑Tennis Paddle”**  
+
+---
+
+## 1. Positive Prompt  
+*(Write it as a single line, commas separating concepts – keep it under ~250 tokens so it fits the model.)*  
+
+```
+ultra‑realistic photo of a single table‑tennis paddle lying flat on a matte black leather‑like surface, light‑beige wooden handle with a thin red stripe, black capital letters SPORTCRAFT engraved on the handle, red rubber striking surface, four tiny silver countersunk screws at the corners of the rubber, central high‑tech attachment, thin glossy blue circular ring mounted on the head, dozens of thin blue wires radiating from a small cylindrical core to the outer ring and to the screws, core is a metallic silver‑gray cylinder about 1 cm tall, multicolour wiring (yellow, blue, white) emerging from the core, two tiny bright LEDs mounted on the core, a miniature blue electric motor next to the LEDs, optional red‑and‑black fan blade attached to the core with four blue wires, soft even lighting, high detail, sharp focus, depth of field shallow, studio lighting, realistic textures, no background clutter, no people, no text other than SPORTCRAFT, no watermarks
+```
+
+---
+
+## 2. Negative Prompt  
+
+```
+blur, out of focus, low‑resolution, jpeg artifacts, watermark, text overlay, logo other than SPORTCRAFT, cartoon, illustration, anime, painting, sketch, abstract, motion blur, lens flare, grainy, overexposed, underexposed, noisy background, wood grain missing, rubber texture flat, plastic sheen unrealistic, extra objects, hands, fingers, table tennis ball, sports arena, crowd, logos of other brands, brand names besides SPORTCRAFT, color banding, unrealistic reflections
+```
+
+---
+
+## 3. Generation Settings  
+
+| Setting | Value | Reason |
+|---------|-------|--------|
+| **Steps** | **55** | Gives enough diffusion time for fine wiring and tiny LED details while keeping generation time reasonable. |
+| **CFG Scale** | **7.5** | Balances adherence to the complex prompt with enough creative freedom for realistic lighting and material interactions. |
+| **Sampler / Scheduler** | **Euler‑a (Euler Ancestral)** | Provides crisp edges and excellent handling of thin structures (wires, screws) without excessive smoothing. |
+| **Model** | **Stable Diffusion XL 1.0 (SDXL‑base)** | The higher resolution and richer latent space of SDXL capture the intricate electronics, metallic sheen, and subtle material differences (wood, rubber, leather) far better than SD‑1.5. |
+| **Resolution** | **1024 × 1024** (or **1152 × 1152** if your GPU allows) | Square canvas matches the centered composition and gives enough pixel budget for the tiny motor, LEDs and wiring. |
+| **Batch size** | 1 (single image) | To focus compute on one highly detailed render. |
+| **Seed** | **Leave empty / random** (or set a fixed seed if you need reproducibility). |
+
+---
+
+## 4. Suggested Image Dimensions  
+
+- **Primary:** `1024 × 1024` px (ideal for most InvokeAI setups).  
+- **If you have extra VRAM:** `1152 × 1152` px – retains the square framing while giving ~33 % more pixel area for ultra‑fine details (wire thickness, LED glow).  
+
+Both sizes keep the paddle centered and the black background uniform, avoiding any aspect‑ratio distortion.
+
+---
+
+## 5. Quick “How to Paste” for InvokeAI  
+
+```bash
+invokeai \
+  --prompt "ultra-realistic photo of a single table-tennis paddle lying flat on a matte black leather-like surface, light-beige wooden handle with a thin red stripe, black capital letters SPORTCRAFT engraved on the handle, red rubber striking surface, four tiny silver countersunk screws at the corners of the rubber, central high-tech attachment, thin glossy blue circular ring mounted on the head, dozens of thin blue wires radiating from a small cylindrical core to the outer ring and to the screws, core is a metallic silver-gray cylinder about 1 cm tall, multicolour wiring (yellow, blue, white) emerging from the core, two tiny bright LEDs mounted on the core, a miniature blue electric motor next to the LEDs, optional red-and-black fan blade attached to the core with four blue wires, soft even lighting, high detail, sharp focus, depth of field shallow, studio lighting, realistic textures, no background clutter, no people, no text other than SPORTCRAFT, no watermarks" \
+  --negative_prompt "blur, out of focus, low-resolution, jpeg artifacts, watermark, text overlay, logo other than SPORTCRAFT, cartoon, illustration, anime, painting, sketch, abstract, motion blur, lens flare, grainy, overexposed, underexposed, noisy background, wood grain missing, rubber texture flat, plastic sheen unrealistic, extra objects, hands, fingers, table tennis ball, sports arena, crowd, logos of other brands, brand names besides SPORTCRAFT, color banding, unrealistic reflections" \
+  --steps 55 \
+  --cfg 7.5 \
+  --sampler euler_a \
+  --model sd_xl_base_1.0.safetensors \
+  --width 1024 --height 1024
+```
+
+---
+
+### Final Note  
+
+The prompt intentionally enumerates every visual component (handle, stripe, branding, rubber, screws, blue ring, blue wires, metallic core, multicolour cabling, LEDs, tiny motor, optional fan) while keeping the language concise enough for the diffusion model to parse. Using **SDXL‑base** with the **Euler‑a** scheduler ensures the fine metallic parts and delicate wiring are rendered sharply, while the CFG of **7.5** keeps the composition faithful to the description without drifting into fantasy. Adjust the **seed** or **steps** slightly if you want a different lighting nuance, but the settings above should give you a near‑perfect recreation of the image you described.
+

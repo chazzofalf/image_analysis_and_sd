@@ -1,0 +1,75 @@
+Thinking...
+We need to output positive prompt, negative prompt, steps, CFG scale, dimensions, model, scheduler. Provide info suitable for recreating it in InvokeAI. So we need to translate description into prompts. Provide suggestions.
+
+We can propose Stable Diffusion XL 1.0, or SD 1.5 with certain LoRA for heart. Scheduler: DPM++ 2M Karras or Euler a.
+
+We must include positive prompt with many details: "highly detailed photograph of a wooden heart-shaped plaque before and after painting, side by side, ...". Include lighting, background.
+
+Negative prompt: "blur, lowres, bad anatomy, text, watermark, signature, jpeg artifacts". Provide step count (e.g., 30-45). CFG scale (7-12). Dimensions (e.g., 1024x512 for side-by-side, or 1152x768). Provide model suggestion.
+
+We must present all sections clearly. Provide final answer.
+...done thinking.
+
+**InvokeAI Settings for a “Before‑and‑After” Photo of a Hand‑Painted Wooden Heart**
+
+| Item | Recommended Value / Text |
+|------|--------------------------|
+| **Positive Prompt** | `high‑resolution side‑by‑side photograph, left panel showing a raw heart‑shaped wooden plaque, pale beige engineered wood, smooth grain, two small drill holes near the top centre, faint blue marker number “2025” in the lower left, tiny blue floral‑like logo in the upper‑right, surrounded by craft‑table clutter – clear plastic wrap edge, matte black rectangular object with yellow price‑tags, crisp white sheet of paper, crumpled brown kraft bag, small white plastic container – soft, even studio lighting from upper‑left, gentle shadows on a dark textured tabletop, focus on the heart, depth of field moderate, background slightly out of focus. Right panel showing the same heart fully hand‑painted, vibrant abstract background of vertical blue, yellow and green strokes, central stylised brown tree with swirling dark‑brown branches, green foliage with hints of yellow and blue, pink and purple whimsical flowers, small white highlights, bright yellow blossom dots, bold hand‑lettered word “LOVE” in pink (with subtle white sheen) at the bottom edge, paint completely covering the original blue number and logo, drilled holes still visible, same tabletop and surrounding objects visible but muted, overall composition lively, colourful, handcrafted, warm, inviting, realistic photographic style, 8K quality, sharp focus, subtle film grain for realism`. |
+| **Negative Prompt** | `low‑resolution, blurry, out‑of‑focus, jpeg artifacts, watermark, signature, text overlay, cartoon, illustration, 3D render, CG, oversaturated, neon glow, lens flare, grainy noise, over‑exposed highlights, underexposed shadows, distortion, deformed wood, missing holes, missing background items, extra hands, people, animals, text “2023” “2015” “2021”, extra lettering, unrealistic colors, flat lighting, harsh shadows, studio backdrop, plain white background`. |
+| **Steps (Sampling Iterations)** | **35–45** (35 works well for most SD‑XL generations; increase to 45 if you need extra detail on the paint texture). |
+| **CFG Scale (Prompt Guidance)** | **7.5–9** (7.5 for a balanced result, 9 if you want the painting details to dominate). |
+| **Image Dimensions** | **1024 × 512 px** (perfect side‑by‑side layout – each panel 512 × 512).  <br>*If you prefer a portrait‑style split, use **512 × 1024 px** (top‑bottom).  <br>For a higher‑detail version, go **1280 × 640 px** (or 640 × 1280).* |
+| **Best Stable Diffusion Model** | **Stable Diffusion XL 1.0** (SDXL‑base) – it handles fine wood grain, subtle lighting, and vibrant hand‑painted textures far better than SD‑1.5. <br>*Optional*: load a “hand‑painted art” LoRA (e.g., `handpainted_v1`) at weight **0.5–0.7** to push the brush‑stroke realism. |
+| **Recommended Scheduler** | **DPM++ 2M Karras** (fast, high‑quality, good at preserving fine detail). <br>*Alternative*: **Euler‑a** if you prefer a slightly softer look with less computational load. |
+
+---
+
+### How to Use These Settings in InvokeAI  
+
+1. **Select the Model**  
+   ```bash
+   --model "sdxl_base_1.0.safetensors"
+   ```
+   (or point to your local SDXL checkpoint).
+
+2. **Add a Hand‑Painted LoRA (optional)**  
+   ```bash
+   --lora "handpainted_v1.safetensors:0.6"
+   ```
+
+3. **Set the Prompt & Negative Prompt**  
+   Paste the *Positive Prompt* into the **Prompt** field and the *Negative Prompt* into the **Negative Prompt** field.
+
+4. **Configure Sampling**  
+   ```bash
+   --steps 40
+   --cfg 8.0
+   --sampler "dpm++_2m_karras"
+   ```
+
+5. **Define Output Size**  
+   ```bash
+   --width 1024 --height 512
+   ```
+
+6. **Generate**  
+   Run the generation. If the first result leans too far toward a cartoonish style, lower the CFG a touch (to 7.5) or add a small amount of “photographic” LoRA (e.g., `photo_realism_v2` at 0.3).
+
+---
+
+### Quick “One‑Liner” for Copy‑Paste  
+
+```text
+prompt: high-resolution side-by-side photograph, left panel raw heart-shaped wooden plaque, pale beige engineered wood, two small drill holes near the top centre, faint blue marker number "2025", tiny blue floral logo, craft table clutter: clear plastic wrap edge, matte black rectangular object with yellow price-tags, crisp white paper, crumpled brown kraft bag, small white plastic container, soft studio lighting from upper-left, gentle shadows on dark textured tabletop, moderate depth of field, focus on heart; right panel same heart fully hand-painted, vibrant abstract background of vertical blue, yellow and green strokes, central stylised brown tree with swirling dark-brown branches, green foliage with hints of yellow and blue, pink and purple whimsical flowers, small white highlights, bright yellow blossom dots, bold hand-lettered word "LOVE" in pink with subtle white sheen at bottom edge, paint covering original blue number and logo, drilled holes still visible, same tabletop and surrounding objects muted, warm handcrafted photographic style, 8K quality, sharp focus, subtle film grain.
+negative_prompt: low-resolution, blurry, jpeg artifacts, watermark, signature, cartoon, illustration, 3D render, oversaturated, neon glow, lens flare, grainy noise, overexposed highlights, underexposed shadows, distortion, deformed wood, missing holes, extra hands, people, animals, text "2023" "2015" "2021", extra lettering, unrealistic colors, flat lighting, harsh shadows, plain white background.
+steps: 40
+cfg_scale: 8.0
+width: 1024
+height: 512
+sampler: dpm++_2m_karras
+model: sdxl_base_1.0.safetensors
+lora: handpainted_v1.safetensors:0.6   (optional)
+```
+
+Use these parameters, adjust the CFG or LoRA weight if the generated heart looks too stylised, and you’ll obtain a faithful, photorealistic “before‑and‑after” image that matches the description you provided. Happy generating!
+

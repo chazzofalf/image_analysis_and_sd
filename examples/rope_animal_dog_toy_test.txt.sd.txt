@@ -1,0 +1,104 @@
+Thinking...
+The user wants: "Based on the following image description, provide information suitable for recreating it in InvokeAI. Include the following: Positive Prompt, Negative Prompt, Step Count, CFG Scale, Suggested Image Dimensions, and an idea on the best stable diffusion model to use and the best scheduler."
+
+We have an exhaustive description above. Now we need to produce InvokeAI parameters.
+
+We need to craft a positive prompt describing the scene: rope animal toy bird-shaped multicoloured rope, white plush dog, black cable, human hand, blurred indoor background, soft lighting, high detail, product photography, studio.
+
+Negative prompt: include things to avoid: blur, distortion, low quality, watermarks, text, cartoonish, unrealistic, extra limbs, deformed anatomy, noise, oversaturation, unrealistic shadows, unrealistic reflections.
+
+Step count: typical 30-50 steps, maybe 45.
+
+CFG scale: around 7-9 for detailed composition.
+
+Suggested dimensions: 768x768 or 1024x1024 for product shot. Maybe 1024x1024.
+
+Best stable diffusion model: e.g., "stable-diffusion-v2-1-base" with "v2.1" for realism, or "stable-diffusion-xl-base-1.0" for higher fidelity. Could also recommend "sdxl-beta" or "realisticVision V5". For product photography, "Realistic Vision v2.0" or "Analog Diffusion". But likely "Stable Diffusion XL 1.0" for high-res.
+
+Best scheduler: DPM++ 2M Karras or Euler a.
+
+So answer with sections.
+
+...done thinking.
+
+**InvokeAI “recipe” for recreating the product‑shot described above**
+
+---  
+
+### 1️⃣ Positive Prompt  
+```
+high‑resolution studio product photograph, centered composition, shallow depth of field, soft diffused artificial lighting, creamy‑gray blurred background, close‑up of a vibrant multicoloured braided cotton rope toy shaped like a stylised bird/chicken, tight braid of scarlet red, electric blue, sunny yellow, grassy green and crisp white strands, reinforced knots at head, body and tail, sturdy and chew‑proof, next to a small plush white toy dog, matte white fur, attached to a thin matte black cable/strap, left human hand gripping the black strap, realistic texture, fine‑detail fibers, subtle specular highlights on rope and plush, warm neutral surface, commercial e‑commerce look, photo‑realistic, 8k‑like detail, no text, no watermark
+```
+
+**Tips:**  
+- Keep the prompt in a single line (or separate with commas) – the commas act as “soft‑breaks” for the model.  
+- If you want a more “advertising” vibe you can add “advertorial style” or “product catalog”.  
+
+---  
+
+### 2️⃣ Negative Prompt  
+```
+low‑resolution, blurry, out‑of‑focus, pixelated, noisy, jpeg artifacts, watermarks, signatures, text overlay, cartoon, anime, illustration, line‑art, hand‑drawn, unrealistic shadows, over‑exposed highlights, under‑exposed, lens flare, background clutter, extra limbs, deformed anatomy, double‑body, duplicated objects, unrealistic colors, pastel wash, grainy, vignette, motion blur, distorted perspective, fish‑eye, tilt‑shift, surreal, fantasy, oil painting, watercolor, pastel, sketch, comic, meme, glitch, NSFW, gore, blood
+```
+
+---  
+
+### 3️⃣ Generation Settings  
+
+| Setting | Recommended Value |
+|---------|-------------------|
+| **Steps** | **45** (30‑60 works; 45 gives a good balance of detail vs. speed) |
+| **CFG Scale** | **7.5** (7‑9 for strong prompt adherence while retaining natural variation) |
+| **Sampler / Scheduler** | **DPM++ 2M Karras** (very good at preserving fine texture) – *alternatively* **Euler‑a** if you prefer a slightly faster run |
+| **Seed** | Any (set a fixed seed if you want reproducibility) |
+| **Batch size** | 1 (product shot, you usually only need one image per run) |
+| **Clip skip** | 2 (for SD‑XL) or default 1 for SD‑2.1 |
+
+---  
+
+### 4️⃣ Suggested Image Dimensions  
+
+- **1024 × 1024 px** – square format works great for e‑commerce listings and social‑media feeds.  
+- If you need a portrait orientation for a catalog or Instagram story, try **768 × 1024 px** (keep the same aspect ratio).  
+- For the highest possible detail (SD‑XL can output up to 1536 × 1536), you can push to **1280 × 1280 px** – just be aware of the extra GPU memory usage.
+
+---  
+
+### 5️⃣ Model Recommendation  
+
+| Model | Why it fits |
+|-------|-------------|
+| **Stable Diffusion XL 1.0 (sdxl_base_1.0)** | XL’s larger latent space produces far more realistic textures, fine‑grained rope fibers, and plush material rendering. Ideal for high‑detail product photography. |
+| **Stable Diffusion 2.1‑base** (if you lack enough VRAM) | Still gives excellent realism, especially when paired with a “realistic‑vision” LoRA (e.g., *Realistic Vision V2.0*). |
+| **LoRA / Embedding (optional)** | Add a “product‑photography” LoRA (e.g., *photographic‑realism‑v1*) or *Realistic Vision* for extra crispness. |
+
+> **Bottom line:** If you have ≥12 GB VRAM, go with **SD‑XL** + **DPM++ 2M Karras**. If you’re limited to 8 GB, use **SD‑2.1‑base** with the same scheduler and raise CFG to ~8.5.
+
+---  
+
+### 6️⃣ Quick One‑Line Command (InvokeAI CLI)
+
+```bash
+invokeai \
+  --model "sdxl_base_1.0.safetensors" \
+  --prompt "high-resolution studio product photograph, centered composition, shallow depth of field, soft diffused artificial lighting, creamy-gray blurred background, close-up of a vibrant multicoloured braided cotton rope toy shaped like a stylised bird, scarlet red, electric blue, sunny yellow, grassy green, crisp white strands, reinforced knots, next to a small plush white toy dog attached to a thin matte black cable, left human hand gripping the strap, realistic texture, fine-detail fibers, subtle specular highlights, warm neutral surface, commercial e-commerce look, photo-realistic" \
+  --negative_prompt "low-resolution, blurry, pixelated, noisy, watermark, text, cartoon, anime, unrealistic shadows, extra limbs, deformed anatomy, overexposed, underexposed, lens flare, background clutter, surreal, oil painting, watercolor, meme, glitch, NSFW" \
+  --width 1024 --height 1024 \
+  --sampler "dpmpp_2m_karras" \
+  --steps 45 \
+  --cfg 7.5 \
+  --seed 123456
+```
+
+*(Adjust the seed, model path, or LoRA flags as needed.)*  
+
+---  
+
+### 7️⃣ Final Tips  
+
+1. **Render a few variations** – change the hand’s angle or the cable’s tension slightly to get the most compelling composition.  
+2. **Post‑process lightly** – a subtle “Sharpen” and a tiny “Noise Reduction” in Photoshop or GIMP can bring out the rope’s texture without breaking realism.  
+3. **Check for “floating” artifacts** – sometimes the black cable can appear semi‑transparent; if so, add a tiny “shadow” prompt term (`soft shadow under cable`) or use an in‑paint step to fix it.  
+
+You now have everything you need to reproduce a clean, commercial‑grade product image of the multicoloured rope bird toy with the plush white dog, black strap, and human hand in InvokeAI. Happy generating! 🚀
+

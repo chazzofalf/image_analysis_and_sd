@@ -1,0 +1,52 @@
+Thinking...
+We need to output information suitable for recreating it in InvokeAI: Positive Prompt, Negative Prompt, Step Count, CFG Scale, Suggested Image Dimensions, and best model and scheduler. Provide those based on description. Also include exhaustive description? The user asked: "Based on the following image description, provide information suitable for recreating it in InvokeAI. Include the following: Positive Prompt, Negative Prompt, Step Count, CFG Scale, Suggested Image Dimensions, and an idea on the best stable diffusion model to use and the best scheduler: Thinking... The user wants combine descriptions into a single, very long and detailed exhaustive description. So we should give both exhaustive description and the needed parameters. Provide maybe bullet list. Use the description we wrote. Then give prompts. Positive prompt: "New Balance sneaker, white upper, dark blue interior, black side N logo, white sole with black heel, white laces tied, loose black string, worn look, scuff marks, wooden floor, dark brown wood grain, minimal white wall, faint window, soft diffused lighting, shallow depth of field, angled toe bottom right, high detail, photorealistic, product photography". Negative prompt: "blur, distortion, lowres, watermark, text, cartoon, illustration, oversaturation, harsh shadows, background clutter, people, extra shoes, neon colors". Steps: maybe 30-45. CFG 7-9. Dimensions: 1024x1024 or 768x1024 (portrait). Best model: Stable Diffusion XL 1.0 or 1.0 base, maybe "Stable Diffusion XL 1.0 (v1.0)" for photorealistic product shots. Scheduler: "Euler a" or "DPM++ 2M Karras". Provide suggestion. Let's craft final answer.
+...done thinking.
+
+## 📸 Exhaustive Image Description (for reference)
+
+The scene is a **high‑resolution, photorealistic product shot** of a **New Balance low‑top sneaker** placed on a **dark‑brown wooden floor**.  
+
+- **Shoe** – White synthetic‑leather/mesh upper with a subtle dark‑blue interior lining that is visible through the toe‑box. A large, muted‑gray “N” logo sits on the lateral side, and a smaller white “N” is embossed on the tongue. The outsole is a dual‑tone rubber: the main tread is crisp white with a classic herring‑bone pattern, while the heel cap and edges are matte black. The midsole is light‑gray EVA foam, slightly chunky under the forefoot.  
+- **Laces** – Predominantly white, neatly tied in a double‑knot, but a single darker (almost black) string dangles loosely from the right side, adding a casual, lived‑in feel.  
+- **Condition** – The shoe shows subtle wear: faint scuff marks on the rubber sole, very light micro‑abrasions on the synthetic leather side panel, and a few specks of dirt on the toe and heel. All seams and stitching are intact; the collar is softly padded.  
+- **Orientation & Composition** – The sneaker is angled so the toe points toward the bottom‑right corner, creating a dynamic diagonal line. It occupies the central two‑thirds of the frame, with a shallow depth of field that keeps the shoe razor‑sharp while the background blurs gently.  
+- **Surface** – The wooden floor displays a rich, straight‑grain pattern in warm mahogany to amber tones, with a subtle sheen from soft, diffused light.  
+- **Background** – A plain white wall fades into a very soft focus, hinting at a faint rectangular window in the upper‑left corner (the glass is slightly frosted, providing only a vague suggestion of an exterior scene). No additional props or clutter appear.  
+- **Lighting** – Even, diffused daylight that creates soft, minimal shadows. Highlights are controlled so the white upper retains texture rather than being blown out.  
+- **Mood** – Quiet, clean, and slightly understated elegance that balances a polished promotional look with realistic signs of use.  
+
+---
+
+## 🛠️ InvokeAI Settings to Re‑Create the Image
+
+| Parameter | Recommended Value |
+|-----------|-------------------|
+| **Positive Prompt** | `New Balance low-top sneaker, white synthetic leather and mesh upper, dark blue interior lining, large muted‑gray side "N" logo, small white "N" on tongue, white rubber outsole with black heel cap, light gray chunky EVA midsole, white laces neatly tied, one loose dark string dangling, subtle scuff marks on sole, light micro‑abrasions on side panel, high‑detail texture, worn but well‑maintained, positioned diagonally with toe pointing bottom right, dark brown wooden floor with visible grain, warm amber tones, minimal plain white wall background, faint frosted window in background, soft diffused daylight, shallow depth of field, photorealistic product photography, 35mm lens, high resolution, studio‑style lighting` |
+| **Negative Prompt** | `low quality, blurry, out of focus, distortion, pixelated, watermark, text, logo overlay, cartoon, illustration, anime, oversaturated, neon colors, harsh shadows, strong directional light, cluttered background, extra shoes, people, hands, feet, reflections, glossy plastic, unrealistic materials` |
+| **Steps** | `35 – 45` (30‑45 works well; 40 is a solid default) |
+| **CFG Scale** | `7.5 – 9` (7.5 gives a good balance of adherence to the prompt while keeping creativity) |
+| **Image Dimensions** | `1024 × 1024` (square works best for product shots) or `768 × 1024` if you prefer a slight portrait orientation that emphasizes the shoe’s height. |
+| **Best Stable Diffusion Model** | **Stable Diffusion XL 1.0** (or **SDXL‑Turbo** for faster renders) – it excels at photorealistic, high‑detail product imagery and handles complex textures (leather, mesh, wood grain) very well. |
+| **Recommended Scheduler** | **Euler‑a** or **DPM++ 2M Karras** – both give smooth, clean results with minimal artefacts for high‑detail close‑ups. |
+
+---
+
+### Quick Copy‑Paste for InvokeAI
+
+```text
+Positive Prompt:
+New Balance low-top sneaker, white synthetic leather and mesh upper, dark blue interior lining, large muted-gray side "N" logo, small white "N" on tongue, white rubber outsole with black heel cap, light gray chunky EVA midsole, white laces neatly tied, one loose dark string dangling, subtle scuff marks on sole, light micro-abrasions on side panel, high-detail texture, worn but well-maintained, positioned diagonally with toe pointing bottom right, dark brown wooden floor with visible grain, warm amber tones, minimal plain white wall background, faint frosted window in background, soft diffused daylight, shallow depth of field, photorealistic product photography, 35mm lens, high resolution, studio-style lighting
+
+Negative Prompt:
+low quality, blurry, out of focus, distortion, pixelated, watermark, text, logo overlay, cartoon, illustration, anime, oversaturated, neon colors, harsh shadows, strong directional light, cluttered background, extra shoes, people, hands, feet, reflections, glossy plastic, unrealistic materials
+
+Steps: 40
+CFG Scale: 8
+Width: 1024
+Height: 1024
+Sampler: Euler-a (or DPM++ 2M Karras)
+Model: Stable Diffusion XL 1.0
+```
+
+Feel free to tweak the CFG scale or step count to suit your hardware and the exact level of crispness you desire. The above settings should give you a clean, photorealistic recreation that matches the exhaustive description. Happy generating!
+

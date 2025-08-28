@@ -1,0 +1,62 @@
+Thinking...
+We need to answer the original user request: "Based on the following image description, provide information suitable for recreating it in InvokeAI. Include the following: Positive Prompt, Negative Prompt, Step Count, CFG Scale, Suggested Image Dimensions, and an idea on the best stable diffusion model to use and the best scheduler: Thinking..." The user hasn't provided the image description directly but seems to be referencing an image description that we saw earlier in the conversation? Actually the user said: "Based on the following image description, provide information suitable for recreating it in InvokeAI. Include the following: Positive Prompt, Negative Prompt, Step Count, CFG Scale, Suggested Image Dimensions, and an idea on the best stable diffusion model to use and the best scheduler: Thinking..." but didn't give the description. However the system message includes a long description about a Coca-Cola bottle etc. That likely is the description we need to use. So we need to produce the required InvokeAI parameters.
+
+Thus we need to craft a positive prompt that describes the scene: a high-quality photo of a Coca-Cola PET bottle on a lab testing rig, with red label, polar bear, neutral lab background, professional lighting, focus, etc. Negative prompt to avoid things like blur, distortion, extra elements, cartoon, low quality, watermarks, text, etc. Provide step count (maybe 30-50 steps), CFG scale (7-12), suggested dimensions (e.g., 1024x1024 or 768x1024 for portrait). Model: Stable Diffusion XL 1.0 or 2.1 or SDXL Beta? Probably SDXL 1.0 for high detail. Scheduler: DPM++ 2M Karras or Euler a? For photorealistic maybe DPM++ 2M Karras.
+
+Thus produce answer accordingly.
+...done thinking.
+
+**InvokeAI “Coca‑Cola PET Bottle Stress‑Test” preset**
+
+---
+
+### ✅ Positive Prompt  
+```
+ultra‑realistic photograph of a classic Coca‑Cola PET bottle standing upright on a sleek laboratory testing rig, bright red Coca‑Cola label with white cursive logo and tiny white polar‑bear illustration, transparent carbonated liquid inside, red screw‑top cap glinting, high‑detail brushed‑aluminium and matte‑black testing platform with pneumatic pistons, digital load‑cell display showing green numbers, calibrated ruler and digital calipers on a stainless‑steel bench, clean white‑gray lab walls, safety caution signs, soft diffused LED panel lighting from left and right, cool‑white ceiling fluorescents, subtle rim lighting on bottle edges, shallow depth of field – bottle and immediate rig in razor‑sharp focus, background gently blurred, vibrant colour palette (Coca‑Cola red, clear glass, neutral lab greys), cinematic composition, 45° elevated camera angle, 50‑85 mm focal length, photorealistic, studio quality, no text or logos other than Coca‑Cola branding
+```
+
+### 🚫 Negative Prompt  
+```
+cartoon, illustration, painting, sketch, low‑poly, anime, CG, 3D render, render artefacts, over‑exposed, blown‑out highlights, grainy, noisy, blurry, out of focus, watermark, signature, text overlay, additional bottles, people, hands, splashes, condensation on label, cracked bottle, broken cap, rust, cluttered background, unrealistic colours, HDR effect, vignette, lens flare, motion blur
+```
+
+### 🔢 Sampling Settings  
+
+| Parameter | Recommended Value |
+|-----------|-------------------|
+| **Steps** | **35‑45** (35 is usually enough for crisp detail; bump to 45 for extra refinement) |
+| **CFG Scale** | **7.5 – 9** (7.5 gives good adherence to the prompt while preserving natural variation) |
+| **Sampler / Scheduler** | **DPM++ 2M Karras** (excellent for photorealistic, high‑detail images) |
+| **Model** | **Stable Diffusion XL 1.0** (or **Stable Diffusion 2.1** if you prefer the older checkpoint – both handle fine detail and realistic lighting well) |
+| **Width × Height** | **1024 × 1024** (square works well for the centred composition) – you can also try **1152 × 896** for a slightly wider, more cinematic framing if you want extra space on the sides. |
+
+### 📐 Suggested Image Dimensions  
+- **Primary:** `1024 × 1024` pixels – gives a balanced square canvas that keeps the bottle central and the lab rig fully visible.  
+- **Alternative (landscape):** `1280 × 960` – if you’d like a bit more room for the surrounding equipment while preserving the 4:3 feel.  
+
+### 🧠 Why these choices?  
+
+- **Model:** SDXL 1.0 was trained on a massive, diverse dataset with a strong bias toward high‑resolution photography, making it ideal for capturing the subtle reflections on PET plastic, the precise label typography, and the clean laboratory lighting.  
+- **Scheduler:** DPM++ 2M Karras converges quickly and produces very smooth gradients, which is perfect for the soft, diffused studio light and the gentle background blur you want.  
+- **CFG ≈ 8:** This keeps the iconic Coca‑Cola branding (red label, white script, polar‑bear) firmly in place while allowing the model to generate realistic lab hardware and lighting nuances.  
+- **Steps ≈ 35‑45:** Enough to let the sampler settle on fine details (cap glint, load‑cell numbers, piston edges) without over‑fitting and creating artificial artefacts.  
+
+---
+
+**Copy‑paste ready block for InvokeAI (YAML style):**
+
+```yaml
+prompt: |
+  ultra-realistic photograph of a classic Coca-Cola PET bottle standing upright on a sleek laboratory testing rig, bright red Coca-Cola label with white cursive logo and tiny white polar-bear illustration, transparent carbonated liquid inside, red screw-top cap glinting, high-detail brushed-aluminium and matte-black testing platform with pneumatic pistons, digital load-cell display showing green numbers, calibrated ruler and digital calipers on a stainless-steel bench, clean white-gray lab walls, safety caution signs, soft diffused LED panel lighting from left and right, cool-white ceiling fluorescents, subtle rim lighting on bottle edges, shallow depth of field – bottle and immediate rig in razor-sharp focus, background gently blurred, vibrant colour palette (Coca-Cola red, clear glass, neutral lab greys), cinematic composition, 45° elevated camera angle, 50-85mm focal length, photorealistic, studio quality, no text or logos other than Coca-Cola branding
+negative_prompt: |
+  cartoon, illustration, painting, sketch, low-poly, anime, CG, render artefacts, over-exposed, blown-out highlights, grainy, noisy, blurry, out of focus, watermark, signature, text overlay, additional bottles, people, hands, splashes, condensation on label, cracked bottle, broken cap, rust, cluttered background, unrealistic colours, HDR effect, vignette, lens flare, motion blur
+steps: 40
+cfg_scale: 8
+sampler: DPM++ 2M Karras
+width: 1024
+height: 1024
+model: sd_xl_base_1.0.safetensors   # or use the official Stable Diffusion 2.1 checkpoint if preferred
+```
+
+Feel free to tweak the **CFG scale** a notch up or down if you notice the brand elements drifting (higher = stricter) or the scene looking too “synthetic” (lower = more creative freedom). Happy generating! 🚀
+

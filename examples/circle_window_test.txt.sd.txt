@@ -1,0 +1,100 @@
+Thinking...
+We need to provide information suitable for recreating it in InvokeAI: Positive Prompt, Negative Prompt, Step Count, CFG Scale, Suggested Image Dimensions, best stable diffusion model and scheduler. We have the exhaustive description above. Now we must craft prompts to generate an image matching that description. Positive prompt should include details: circular window, industrial concrete wall, weathered steel frame, frosted glass, soft diffused light, muted gray palette, semi-transparent circular overlay, UI screenshot with title bar, filename caption. Negative prompt: avoid cartoonish, avoid bright colors, avoid lens flare, avoid distortion, avoid low detail, avoid modern glass, avoid glossy, avoid abstract shapes unrelated, avoid high saturation.
+
+Step Count: typical 30-45? For detailed texture maybe 50 steps. CFG Scale: around 7-8. Dimensions: maybe 768x768 or 1024x1024 to capture details. Model: Stable Diffusion XL 1.0 or 2.1? For architectural textures, maybe SDXL 1.0 or stable diffusion 2.1 base. Scheduler: DPM++ 2M Karras for fine details.
+
+Let's produce final answer with sections.
+...done thinking.
+
+**InvokeAI Generation Settings for “circle_window_test.jpg”**
+
+Below you will find a complete set of parameters that will let you recreate the dual‑nature image (a realistic photograph of a circular industrial window embedded inside a UI‑screenshot with a semi‑transparent overlay) in InvokeAI.
+
+---
+
+## 1️⃣ Positive Prompt (≈ 250‑300 tokens)
+
+```
+ultra‑realistic photograph of a perfectly circular industrial window set in an aged concrete wall, dark‑gray weathered steel frame with subtle rust speckles, fine scratches and patina, frosted glass pane with soft pearlescent highlight, blurred distant foliage visible through the glass, rough concrete texture showing aggregate, hair‑line cracks and small chips, soft diffuse overcast lighting, muted desaturated palette of dark gray, silvery metal, brown‑gray rust and faint greenish patina, gentle curvature of wall around the opening, high‑detail macro focus on material surface, shallow depth of field emphasizing the circular opening, subtle rim lighting on the metal, realistic shadows with no hard edges, 8K‑quality, photo‑realistic rendering, shot on a full‑frame DSLR, 35mm lens, f/2.8, ISO 100, natural light
+
+inside a modern minimalist computer UI window, light‑gray rectangular frame with rounded corners, thin low‑contrast border, title bar showing the filename “circle_window_test.jpg” in black sans‑serif font, semi‑transparent circular overlay (light gray, 40 % opacity, feathered edges) centered over the photograph, overlay has a soft radial gradient, UI background is neutral light‑gray, caption text below the image reading “circle_window_test.jpg” in black, utilitarian test‑screenshot style, no decorative icons, no extra menus
+
+focus on texture, material realism, accurate lighting, photographic depth, and the juxtaposition of a realistic architectural detail inside a clean software‑testing interface
+```
+
+*Tips:*  
+- Keep the commas as shown; they act as “attention separators” for the model.  
+- If you prefer a shorter prompt you can drop the camera‑spec details, but keeping them helps the model understand the photographic look.
+
+---
+
+## 2️⃣ Negative Prompt
+
+```
+cartoon, illustration, painting, sketch, low‑poly, flat shading, vibrant colors, neon, oversaturation, high contrast, lens flare, bloom, motion blur, bokeh beyond the focal area, HDR, glossy finish, polished glass, modern glass curtain wall, chrome, futuristic, sci‑fi, cyberpunk, abstract shapes, text overlay beyond filename, UI icons, toolbar, menu bar, window controls, watermark, grainy, noise, JPEG artifacts, blurry, out‑of‑focus, low resolution, pixelated, over‑sharpened, unrealistic shadows, overexposed, underexposed, sunrays, streaks, fog, mist, rain, snow, smoke, fire
+```
+
+---
+
+## 3️⃣ Sampling Settings
+
+| Parameter | Recommended Value |
+|-----------|-------------------|
+| **Steps** | **45–50** (45 works well for the fine concrete texture; increase to 50 for extra crispness) |
+| **CFG Scale** | **7.5** (balances prompt adherence with creative freedom) |
+| **Sampler** | **DPM++ 2M Karras** (excellent for detailed material rendering) |
+| **Seed** | *Leave blank* for a random seed, or set a fixed seed (e.g., `123456789`) for reproducibility |
+| **Batch Size** | 1 |
+| **Enable High‑Res Fix** | ✔︎ (use the same dimensions as the final output) |
+| **Upscaler** | *Optional*: use **ESRGAN 4x** after generation if you need >1024 px resolution |
+
+---
+
+## 4️⃣ Suggested Image Dimensions
+
+| Goal | Dimensions (pixels) |
+|------|---------------------|
+| **Standard square** | **1024 × 1024** – good balance of detail and speed |
+| **Portrait / UI‑like** | **768 × 1024** – mimics a typical window screenshot while preserving vertical detail |
+| **Landscape / wider UI** | **1024 × 768** – if you want a wider desktop‑window feel |
+
+*If you want a true “screenshot” aspect ratio (roughly 16:9) you can use **1280 × 720**; just enable the High‑Res Fix so the texture stays sharp.*
+
+---
+
+## 5️⃣ Model Recommendation
+
+| Model | Why It Fits |
+|-------|------------|
+| **Stable Diffusion XL 1.0** (`sdxl_base_1.0_fp16.safetensors`) | XL’s 2‑stage architecture gives superior handling of fine textures (concrete, rust, frosted glass) and complex compositional cues (UI overlay + photograph). |
+| **Stable Diffusion 2.1‑base** (`sd_v2.1_768_v-ema.ckpt`) | If you prefer a smaller model, SD 2.1 still renders realistic materials well and works nicely with the DPM++ sampler. |
+| **Stable Diffusion 1.5** (`v1‑5‑pruned.ckpt`) | Acceptable for quick tests, but may struggle with the subtle translucency of the overlay and the high‑detail concrete surface. |
+
+*Bottom line:* **SDXL 1.0** + **DPM++ 2M Karras** gives the most faithful reproduction of both the photographic realism and the clean UI elements.
+
+---
+
+## 6️⃣ Quick “One‑Click” Command (InvokeAI CLI)
+
+```bash
+invokeai \
+  --model_path sd_xl_base_1.0_fp16.safetensors \
+  --prompt "ultra-realistic photograph of a perfectly circular industrial window set in an aged concrete wall, dark-gray weathered steel frame with subtle rust speckles, fine scratches and patina, frosted glass pane with soft pearlescent highlight, blurred distant foliage visible through the glass, rough concrete texture showing aggregate, hair-line cracks and small chips, soft diffuse overcast lighting, muted desaturated palette of dark gray, silvery metal, brown-gray rust and faint greenish patina, gentle curvature of wall around the opening, high-detail macro focus on material surface, shallow depth of field emphasizing the circular opening, subtle rim lighting on the metal, realistic shadows with no hard edges, 8K-quality, photo-realistic rendering, shot on a full-frame DSLR, 35mm lens, f/2.8, ISO 100, natural light inside a modern minimalist computer UI window, light-gray rectangular frame with rounded corners, thin low-contrast border, title bar showing the filename “circle_window_test.jpg” in black sans-serif font, semi-transparent circular overlay (light gray, 40% opacity, feathered edges) centered over the photograph, overlay has a soft radial gradient, UI background is neutral light-gray, caption text below the image reading “circle_window_test.jpg” in black, utilitarian test-screenshot style, no decorative icons, no extra menus, focus on texture, material realism, accurate lighting, photographic depth, and the juxtaposition of a realistic architectural detail inside a clean software-testing interface" \
+  --negative_prompt "cartoon, illustration, painting, sketch, low-poly, flat shading, vibrant colors, neon, oversaturation, high contrast, lens flare, bloom, motion blur, bokeh beyond the focal area, HDR, glossy finish, polished glass, modern glass curtain wall, chrome, futuristic, sci-fi, cyberpunk, abstract shapes, text overlay beyond filename, UI icons, toolbar, menu bar, window controls, watermark, grainy, noise, JPEG artifacts, blurry, out-of-focus, low resolution, pixelated, over-sharpened, unrealistic shadows, overexposed, underexposed, sunrays, streaks, fog, mist, rain, snow, smoke, fire" \
+  --width 1024 --height 1024 \
+  --sampler DPM++_2M_Karras \
+  --steps 45 \
+  --cfg 7.5 \
+  --seed 123456789 \
+  --highres_fix \
+  --output_dir ./generated_images
+```
+
+*(Adjust `--width`/`--height` or `--seed` as you like.)*
+
+---
+
+### 🎉 Final Note
+
+The combination of **high‑detail photographic language** (concrete, rust, frosted glass, soft lighting) with **explicit UI descriptors** (title bar, filename caption, semi‑transparent overlay) guides the model to produce exactly the hybrid image you described: a realistic circular industrial window embedded within a clean software‑testing screenshot. Use the settings above, experiment with a few seeds, and you should obtain a result that matches the exhaustive description you provided. Happy generating!
+
