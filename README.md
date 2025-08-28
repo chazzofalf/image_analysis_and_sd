@@ -1,4 +1,5 @@
 # Image Description Tool
+Repository: https://github.com/chazzofalf/image_analysis_and_sd
 
 This tool leverages Ollama models to describe images and generate stable diffusion parameters for recreation in InvokeAI.
 
@@ -24,8 +25,8 @@ This tool leverages Ollama models to describe images and generate stable diffusi
 
 1.  Clone the repository:
     ```bash
-    git clone [repository URL]
-    cd [repository directory]
+    git clone https://github.com/chazzofalf/image_analysis_and_sd
+    cd image_analysis_and_sd
     ```
 2.  Create a virtual environment:
     ```bash
