@@ -1,0 +1,51 @@
+Thinking...
+We need to output: Positive Prompt, Negative Prompt, Step Count, CFG Scale, Suggested Image Dimensions, best stable diffusion model, best scheduler. Also include the exhaustive description? The user asked: "Based on the following image description, provide information suitable for recreating it in InvokeAI. Include the following: Positive Prompt, Negative Prompt, Step Count, CFG Scale, Suggested Image Dimensions, and an idea on the best stable diffusion model to use and the best scheduler."
+
+Thus we need to give those items. Should incorporate the exhaustive description we prepared earlier, maybe as a reference. Provide positive prompt with detailed descriptors, negative prompt for unwanted artifacts, steps ~30-45, CFG 7-9, dimensions maybe 768x1024 (portrait). Best model: SDXL 1.0 or SDXL Turbo? Considering detailed textures and realistic look, use stable diffusion XL 1.0 or 1.0 base with photorealistic. Scheduler: DPM++ 2M Karras or Euler a. Provide suggestions.
+
+Let's craft final answer.
+...done thinking.
+
+**✅ Quick‑Start “InvokeAI” Settings**
+
+| Item | Recommendation |
+|------|-----------------|
+| **Positive Prompt** | `a small dark‑fur animal curled up sleeping on a cozy patterned blanket, realistic photography, soft natural light filtered through a sheer white curtain, navy‑blue blanket with tiny white/ light‑blue four‑petal flower motif, lightly rumpled sky‑blue sheet underneath, plain white wall background, subtle window with diffused daylight, shallow depth of field, ultra‑sharp focus on animal’s face, warm‑amber glow, highly detailed fur, plush texture, intimate bedroom scene, 8k resolution, cinematic composition, top‑down angle` |
+| **Negative Prompt** | `low‑resolution, blurry, jpeg artifacts, over‑exposed, under‑exposed, color banding, chromatic aberration, watermark, text, signature, frame, lens flare, cartoon, illustration, anime, painting, oil‑painting, stylized, vignette, grainy, noise, over‑sharpened, HDR, unrealistic shadows, missing limbs, extra paws, duplicated body parts, deformed anatomy, unrealistic proportions, plastic look` |
+| **Steps** | **35–45** (35 works well for most cases; push to 45 if you need extra fine detail on fur and fabric) |
+| **CFG Scale** | **7.5–9** (7.5 for a balanced blend of prompt fidelity and creativity; 9 if you want the image to follow the prompt almost verbatim) |
+| **Suggested Image Dimensions** | **768 × 1024** (portrait – good for a bedside view) or **1024 × 1280** if you want a bit more vertical space for the window and wall. |
+| **Best Stable‑Diffusion Model** | **Stable Diffusion XL 1.0 (or XL 1.0‑refiner)** – it handles realistic lighting, fine fur texture and fabric patterns far better than the 1.5 checkpoint. If you have limited VRAM, the **SDXL‑Turbo** checkpoint can also produce good results at a lower cost, but expect slightly less micro‑detail. |
+| **Best Scheduler** | **DPM++ 2M Karras** (very stable for photorealistic output) – alternatively **Euler‑a** works well for a smoother, less “noisy” finish. |
+
+---
+
+### How the Prompt Was Built (Why It Works)
+
+- **Subject Detail** – “small dark‑fur animal” covers both the dog‑or‑cat ambiguity while keeping the description concise for the model. Adding “curled up sleeping” forces the pose.
+- **Fabric & Pattern** – Explicitly naming the **navy‑blue blanket** and **tiny white/light‑blue four‑petal flower motif** gives the model a concrete visual cue for the patterned textile, which is often a weak point for generic prompts.
+- **Lighting & Atmosphere** – Phrases like “soft natural light filtered through a sheer white curtain”, “warm‑amber glow”, and “diffused daylight” steer the model toward the low‑key, gently illuminated mood described.
+- **Depth & Focus** – “shallow depth of field”, “ultra‑sharp focus on animal’s face”, and “top‑down angle” ensure the animal is the clear focal point while the background stays softly rendered.
+- **Quality Tags** – “realistic photography”, “8k resolution”, “cinematic composition” push the model toward a high‑detail, photorealistic output rather than an illustration or stylized rendering.
+
+---
+
+### Quick “Copy‑Paste” Block for InvokeAI
+
+```yaml
+prompt: |
+  a small dark-fur animal curled up sleeping on a cozy patterned blanket, realistic photography, soft natural light filtered through a sheer white curtain, navy-blue blanket with tiny white light-blue four-petal flower motif, lightly rumpled sky-blue sheet underneath, plain white wall background, subtle window with diffused daylight, shallow depth of field, ultra-sharp focus on animal's face, warm-amber glow, highly detailed fur, plush texture, intimate bedroom scene, 8k resolution, cinematic composition, top-down angle
+negative_prompt: |
+  low-resolution, blurry, jpeg artifacts, over-exposed, under-exposed, color banding, chromatic aberration, watermark, text, signature, frame, lens flare, cartoon, illustration, anime, painting, oil-painting, stylized, vignette, grainy, noise, over-sharpened, HDR, unrealistic shadows, missing limbs, extra paws, duplicated body parts, deformed anatomy, unrealistic proportions, plastic look
+steps: 40
+cfg_scale: 8
+width: 768
+height: 1024
+sampler: DPM++ 2M Karras
+model: stabilityai/stable-diffusion-xl-base-1.0   # or the XL‑Turbo checkpoint if VRAM is limited
+```
+
+Feel free to tweak the **CFG** (higher for stricter adherence) or **steps** (more steps for extra fine fur detail). Adjust the **width/height** if you prefer a wider composition that includes more of the window or wall.  
+
+Happy generating! 🎨🖼️
+
