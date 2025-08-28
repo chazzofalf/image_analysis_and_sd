@@ -102,4 +102,4 @@ Happy generating! 🎨🖼️
 
 This project is licensed under the MIT License - see the `LICENSE` file for details.
 
-<small>Made with <a href="https://github.com/chazzofalf">Cline</a> and <a href="https://ollama.com">Ollama</a>, using models <a href="https://ollama.com/library/gpt-oss:120b">gpt-oss:120b</a> and <a href="https://ollama.com/library/gemma3:27b">gemma3:27b</a>.</small>
+<small>Made with <a href="https://cline.bot">Cline</a> and <a href="https://ollama.com">Ollama</a>, using models <a href="https://ollama.com/library/gpt-oss:120b">gpt-oss:120b</a> and <a href="https://ollama.com/library/gemma3:27b">gemma3:27b</a>.</small>
