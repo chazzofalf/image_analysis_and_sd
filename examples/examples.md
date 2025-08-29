@@ -1,6 +1,6 @@
 ## Art Test
 
-![Art Test](/Users/chazz/projects/image_analysis_and_sd/examples/art_test.jpg)
+![Art Test](examples/art_test.jpg)
 
 
 
@@ -171,7 +171,7 @@ Use these parameters, adjust the CFG or LoRA weight if the generated heart looks
 
 ## Atlantis Book Test
 
-![Atlantis Book Test](/Users/chazz/projects/image_analysis_and_sd/examples/atlantis_book_test.jpg)
+![Atlantis Book Test](examples/atlantis_book_test.jpg)
 
 
 
@@ -355,7 +355,7 @@ Happy generating! 🚀
 
 ## Circle Window Test
 
-![Circle Window Test](/Users/chazz/projects/image_analysis_and_sd/examples/circle_window_test.jpg)
+![Circle Window Test](examples/circle_window_test.jpg)
 
 
 
@@ -602,7 +602,7 @@ The combination of **high‑detail photographic language** (concrete, rust, fros
 
 ## Coke Bottle Test
 
-![Coke Bottle Test](/Users/chazz/projects/image_analysis_and_sd/examples/coke_bottle_test.jpg)
+![Coke Bottle Test](examples/coke_bottle_test.jpg)
 
 
 
@@ -724,7 +724,7 @@ Feel free to tweak the **CFG scale** a notch up or down if you notice the brand 
 
 ## Lamb Chop Dog Toy Test
 
-![Lamb Chop Dog Toy Test](/Users/chazz/projects/image_analysis_and_sd/examples/lamb_chop_dog_toy_test.jpg)
+![Lamb Chop Dog Toy Test](examples/lamb_chop_dog_toy_test.jpg)
 
 
 
@@ -920,7 +920,7 @@ The prompt and negative prompt together capture **every visual cue** described i
 
 ## Outside Window Streetview Test
 
-![Outside Window Streetview Test](/Users/chazz/projects/image_analysis_and_sd/examples/outside_window_streetview_test.jpg)
+![Outside Window Streetview Test](examples/outside_window_streetview_test.jpg)
 
 
 
@@ -1122,7 +1122,7 @@ Feel free to adjust the seed, dimensions, or sampler to suit your hardware and a
 
 ## Paddle Fan Test
 
-![Paddle Fan Test](/Users/chazz/projects/image_analysis_and_sd/examples/paddle_fan_test.jpg)
+![Paddle Fan Test](examples/paddle_fan_test.jpg)
 
 
 
@@ -1283,7 +1283,7 @@ The prompt intentionally enumerates every visual component (handle, stripe, bran
 
 ## Rope Animal Dog Toy Test
 
-![Rope Animal Dog Toy Test](/Users/chazz/projects/image_analysis_and_sd/examples/rope_animal_dog_toy_test.jpg)
+![Rope Animal Dog Toy Test](examples/rope_animal_dog_toy_test.jpg)
 
 
 
@@ -1478,7 +1478,7 @@ You now have everything you need to reproduce a clean, commercial‑grade produc
 
 ## Shoe Test
 
-![Shoe Test](/Users/chazz/projects/image_analysis_and_sd/examples/shoe_test.jpg)
+![Shoe Test](examples/shoe_test.jpg)
 
 
 
@@ -1640,7 +1640,7 @@ Feel free to tweak the CFG scale or step count to suit your hardware and the exa
 
 ## Treadmill Test
 
-![Treadmill Test](/Users/chazz/projects/image_analysis_and_sd/examples/treadmill_test.jpg)
+![Treadmill Test](examples/treadmill_test.jpg)
 
 
 
