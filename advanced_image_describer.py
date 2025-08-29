@@ -1,6 +1,6 @@
 import subprocess
 import sys
-
+from ollama_ls_parser import get_ollama_models_via_ls
 def generate_description(model, image_path):
     try:
         with open(image_path, 'rb') as image_file:
@@ -37,14 +37,7 @@ if __name__ == "__main__":
     image_path = sys.argv[1]
     output_file = sys.argv[2]
 
-    models = [
-        "gemma3:27b",
-        "llava:latest",
-        "llama4:scout",
-        "qwen2.5vl:72b",
-        "Moondream:latest",
-        "mistral-small3.2:24b"
-    ]
+    models = get_ollama_models_via_ls() # Gets Descriptions from ALL Models installed!
 
     descriptions = []
     for model in models:

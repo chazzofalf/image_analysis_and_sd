@@ -1,6 +1,6 @@
 import subprocess
 from PIL import Image
-
+from ollama_ls_parser import get_ollama_models_via_ls
 def describe_image(image_path, model_name):
     try:
         # Open the image to validate it
@@ -30,7 +30,7 @@ def describe_image(image_path, model_name):
         return f"An unexpected error occurred: {e}"
 
 def multiple_describe_image(image_path):
-    models = ["gemma3:27b", "llava:latest", "llama4:scout", "mistral-small3.2:24b", "Moondream:latest", "llama3.2-vision:latest"]
+    models = get_ollama_models_via_ls() # Use ALL installed models (Some may not work. But THAT is what will make it more interesting!)!
     results = []
     for model in models:
         results.append(describe_image(image_path, model))
