@@ -1,6 +1,7 @@
 import subprocess
 from PIL import Image
 from ollama_ls_parser import get_ollama_models_via_ls
+from output_file_pair import OutputFilePair
 def describe_image(image_path, model_name):
     try:
         # Open the image to validate it
@@ -68,21 +69,23 @@ def stable_diffusion_info(description):
     except Exception as e:
         return f"Error generating stable diffusion info: {e}"
 
+def main(image_path):
+    pair = OutputFilePair(image_path)
+    descriptions = multiple_describe_image(image_path)
+    summary = summarize_descriptions(descriptions)
+    with open(pair.description_file, "w") as f:
+        f.write(summary)
+
+    sd_info = stable_diffusion_info(summary)
+    with open(pair.stable_diffusion_file, "w") as f:
+        f.write(sd_info)
+
+    print(f"Summary written to {pair.description_file}")
+    print(f"Stable Diffusion info written to {pair.stable_diffusion_file}")
+
 if __name__ == "__main__":
     import sys
-    if len(sys.argv) != 3:
-        print("Usage: python image_describer2.py <image_path> <output_file>")
+    if len(sys.argv) != 2:
+        print("Usage: python image_describer.py <image_path>")
     else:
-        image_path = sys.argv[1]
-        output_file = sys.argv[2]
-        descriptions = multiple_describe_image(image_path)
-        summary = summarize_descriptions(descriptions)
-        with open(output_file, "w") as f:
-            f.write(summary)
-        
-        sd_info = stable_diffusion_info(summary)
-        with open(f"{output_file}.sd.txt", "w") as f:
-            f.write(sd_info)
-        
-        print(f"Summary written to {output_file}")
-        print(f"Stable Diffusion info written to {output_file}.sd.txt")
+        main(sys.argv[1])
