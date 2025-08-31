@@ -4,6 +4,8 @@ from ollama_ls_parser import get_ollama_models_via_ls
 import os
 from output_file_pair import OutputFilePair
 from pathlib import Path
+import ollama
+import base64
 def describe_image(image_path, model_name):
     PROMPT="""
 You are an AI model with vision capabilities.  
@@ -61,13 +63,43 @@ allow someone who cannot see the image to form a vivid mental picture of it.
     except Exception as e:
         return f"An unexpected error occurred: {e}"
 def filtered_models():
-    return [g for f in get_ollama_models_via_ls() for g in ([f] if check_if_image_model(f) else [])]
+    return [g for f in get_ollama_models_via_ls() for g in ([f] if run_image_inference(f) else [])]
 def multiple_describe_image(image_path):
     models = filtered_models() # Use ALL installed models that self-report themselves to work with images.
     results = []
     for model in models:
         results.append(describe_image(image_path, model))
     return results
+def run_image_inference(model_name: str, image_path: str=str(Path(Path(__file__).parent.absolute(),"Scout.jpg")), prompt: str="Describe this image."):
+    try:
+        with open(image_path, 'rb') as img_file:
+            img_data = img_file.read()
+            img_base64 = base64.b64encode(img_data).decode('utf-8')
+
+        stream = ollama.chat(
+            model=model_name,
+            messages=[
+                {"role": "user", "content": prompt, "images": [img_base64]}
+            ],
+            stream=True,
+        )
+
+        model_response = ""
+        for chunk in stream:
+            model_response += chunk["message"]["content"]
+            print(chunk["message"]["content"], end="", flush=True)
+        
+        # Analyze the model's response to confirm image processing
+        if "Please provide me with the image!" in model_response or "no image for me to describe" in model_response:
+            print("\nOllama model indicated it did not receive or process the image correctly.")
+            return False
+        else:
+            print("\nOllama model appears to have successfully processed the image.")
+            return True
+
+    except Exception as e:
+        print(f"\nError during Ollama interaction: {e}")
+        return False
 def check_if_image_model(model):
     PROMPT = """If you can load the image 'FILENAME_PATH' and see what is there just output the word "'"True"'", Otherwise "'"False"'"""
     try:

@@ -96,7 +96,7 @@ Happy generating! 🎨🖼️
 ## Dependencies
 
 -   Ollama
--   Python 3
+-   Python 3.10.18
 
 ## License
 
