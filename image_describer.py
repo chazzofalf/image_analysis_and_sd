@@ -64,7 +64,7 @@ allow someone who cannot see the image to form a vivid mental picture of it.
     except Exception as e:
         return f"An unexpected error occurred: {e}"
 def filtered_models():
-    return [g for f in get_ollama_models_via_ls() for g in ([f] if run_image_inference(f) else [])]
+    return [g for f in get_ollama_models_via_ls() for g in ([f] if is_multimodal(f) else [])]
 def multiple_describe_image(image_path):
     models = filtered_models() # Use ALL installed models that self-report themselves to work with images.
     results = []
