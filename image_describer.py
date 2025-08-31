@@ -3,11 +3,12 @@ from PIL import Image
 from ollama_ls_parser import get_ollama_models_via_ls
 import os
 from output_file_pair import OutputFilePair
+from pathlib import Path
 def describe_image(image_path, model_name):
     PROMPT="""
 You are an AI model with vision capabilities.  
 Please open and examine the image located at **FILENAME_PLACEMARKER** and give a **comprehensive, exhaustive, and human‑readable description** 
-of everything you see. If you cannot load or see the image. Stop Right There.
+of everything you see. If you cannot load or see the image. Stop right there and say nothing. (Blank output)
 
 Otherwise,
 
@@ -59,14 +60,30 @@ allow someone who cannot see the image to form a vivid mental picture of it.
         return f"Error running Ollama: {e}"
     except Exception as e:
         return f"An unexpected error occurred: {e}"
-
+def filtered_models():
+    return [g for f in get_ollama_models_via_ls() for g in ([f] if check_if_image_model(f) else [])]
 def multiple_describe_image(image_path):
-    models = get_ollama_models_via_ls() # Use ALL installed models (Some may not work. But THAT is what will make it more interesting!)!
+    models = filtered_models() # Use ALL installed models that self-report themselves to work with images.
     results = []
     for model in models:
         results.append(describe_image(image_path, model))
     return results
-
+def check_if_image_model(model):
+    PROMPT = """If you can load the image 'FILENAME_PATH' and see what is there just output the word "'"True"'", Otherwise "'"False"'"""
+    try:
+        command = [
+            "ollama",
+            "run",
+            model,
+            "--",
+            PROMPT.replace("FILENAME_PATH",os.path.abspath(str(Path(Path(__file__).parent.absolute(),"Scout.jpg"))))
+        ]
+        result = subprocess.run(command, capture_output=True, text=True, check=True)
+        
+        summary = result.stdout
+        return summary.strip().lower() == 'true'        
+    except Exception as e:
+        return False # If there is error running this model then don't include it.
 def summarize_descriptions(descriptions):
     try:
         command = [
