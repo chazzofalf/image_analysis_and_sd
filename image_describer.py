@@ -51,7 +51,7 @@ allow someone who cannot see the image to form a vivid mental picture of it.
 
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         description = result.stdout
-        
+       	print(f"Model `{model_name}`'s Description of {os.path.abspath(image_path)}: {description}")
         return f"### {model_name}'s take on the image:\n\n{description}"
 
     except FileNotFoundError:
@@ -81,6 +81,7 @@ def check_if_image_model(model):
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         
         summary = result.stdout
+	print(f"Model `{model}`'s self-reported existance of image reading capability: {summary}")
         return summary.strip().lower() == 'true'        
     except Exception as e:
         return False # If there is error running this model then don't include it.
@@ -96,6 +97,7 @@ def summarize_descriptions(descriptions):
         ]
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         summary = result.stdout
+	print(f"Writing image summary: {summary}")
         return summary
     except Exception as e:
         return f"Error summarizing descriptions: {e}"
@@ -112,6 +114,7 @@ def stable_diffusion_info(description):
         ]
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         info = result.stdout
+	print(f"Writing image stable diffusion info: {info}")
         return info
     except Exception as e:
         return f"Error generating stable diffusion info: {e}"
