@@ -1,8 +1,38 @@
 import subprocess
 from PIL import Image
 from ollama_ls_parser import get_ollama_models_via_ls
+import os
 from output_file_pair import OutputFilePair
 def describe_image(image_path, model_name):
+    PROMPT="""
+You are an AI model with vision capabilities.  
+Please open and examine the image located at **FILENAME_PLACEMARKER** and give a **comprehensive, exhaustive, and human‑readable description** 
+of everything you see. If you cannot load or see the image. Stop Right There.
+
+Otherwise,
+
+In your description, be sure to cover at least the following points:
+
+1. **Overall scene & context** – What is the general setting (indoor, outdoor, studio, nature, etc.)? What might be happening?
+2. **Primary subjects** – Identify the main objects, people, animals, or structures. Mention their positions, poses, expressions, and any 
+notable actions.
+3. **Secondary elements** – List background items, props, or details that support the main subjects.
+4. **Colors, textures & materials** – Note dominant colors, subtle hues, surface qualities (smooth, rough, glossy, matte, etc.), and any 
+patterns.
+5. **Lighting & shadows** – Describe the light source(s), direction, intensity, color temperature, and how shadows fall across the scene.
+6. **Composition & perspective** – Comment on framing, camera angle, depth of field, focal length, rule‑of‑ thirds, leading lines, 
+symmetry, or any artistic choices.
+7. **Spatial relationships** – Explain how objects relate to each other in distance, scale, and orientation.
+8. **Atmosphere & mood** – Infer the emotional tone, ambiance, or narrative suggested by the image (e.g., calm, chaotic, festive, 
+somber).
+9. **Potential context clues** – Any text, signage, timestamps, logos, or cultural references that hint at location, time period, 
+or purpose.
+10. **Any anomalies or notable details** – Highlight unusual features, imperfections, reflections, or hidden elements that a casual 
+glance might miss.
+
+Write the description in clear, natural language, using full sentences and organized paragraphs. Aim for a level of detail that would 
+allow someone who cannot see the image to form a vivid mental picture of it.
+"""
     try:
         # Open the image to validate it
         Image.open(image_path)
@@ -13,7 +43,7 @@ def describe_image(image_path, model_name):
             "run",
             model_name,
             "--",
-            "Describe this image in great detail.",
+            PROMPT.replace("FILENAME_PLACEMARKER",os.path.abspath(image_path)),
             "-i",
             image_path
         ]
