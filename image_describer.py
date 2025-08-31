@@ -6,6 +6,7 @@ from output_file_pair import OutputFilePair
 from pathlib import Path
 import ollama
 import base64
+import requests
 def describe_image(image_path, model_name):
     PROMPT="""
 You are an AI model with vision capabilities.  
@@ -70,6 +71,24 @@ def multiple_describe_image(image_path):
     for model in models:
         results.append(describe_image(image_path, model))
     return results
+
+def is_multimodal(model_name):
+    """Checks if an Ollama model supports multimodal inputs."""
+    try:
+        url = f"http://localhost:11434/api/show"
+        data = {"name": model_name}
+        response = requests.post(url, json=data)
+        response.raise_for_status()  # Raise an exception for bad status codes
+        
+        details = response.json()
+        
+        # Check if "clip" is present in the model's families
+        if 'details' in details and 'families' in details['details']:
+            return 'clip' in details['details']['families']
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Error checking model details: {e}")
+    return False
 def run_image_inference(model_name: str, image_path: str=str(Path(Path(__file__).parent.absolute(),"Scout.jpg")), prompt: str="Describe this image."):
     try:
         with open(image_path, 'rb') as img_file:
