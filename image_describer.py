@@ -65,8 +65,24 @@ allow someone who cannot see the image to form a vivid mental picture of it.
         return f"An unexpected error occurred: {e}"
 def filtered_models():
     return [g for f in get_ollama_models_via_ls() for g in ([f] if is_multimodal(f) else [])]
+def good_models():
+    return [
+        "gemma3:27b",
+        "llava:34b",
+        "minicpm-v:8b",
+        "llama3.2-vision:90b",
+        "llava-llama3:8b",
+        "llama4:16x17b", # Not the biggest one but this one is at least marginally supported. But if you do have a datacenter in your basement then go ahead and user llama4:128x17b too
+        # "llama4:128x17b", # Uncomment this one if you have a server room in your basement and plan on running this on it. :-D
+        "qwen2.5vl:72b",
+        "granite3.2-vision:2b",
+        "moondream:1.8b",
+        "mistral-small3.1:24b",
+        "bakllava:7b",
+        "llava-phi3:3.8b"
+    ]
 def multiple_describe_image(image_path):
-    models = filtered_models() # Use ALL installed models that self-report themselves to work with images.
+    models = good_models() # Use ALL installed models that self-report themselves to work with images.
     results = []
     for model in models:
         results.append(describe_image(image_path, model))

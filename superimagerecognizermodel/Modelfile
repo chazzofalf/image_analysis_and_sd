@@ -1,5 +1,0 @@
-FROM gemma3-27.4B-Q4_K_M.gguf # Good baseline model to use from Google (gemma3:27b from Ollama reassembled)
-ADAPTER llava-34B-Q4_0.gguf
-ADAPTER mistral-small3.2-24.0B-Q4_K_M.gguf
-ADAPTER minicpm-v-7.6B-Q4_0.gguf
-ADAPTER Moondream-1B-Q4_0.gguf
