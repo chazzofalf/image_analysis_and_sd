@@ -69,7 +69,7 @@ def good_models():
     return [
         "gemma3:27b",
         "llava:34b",
-        # "minicpm-v:8b",
+        "minicpm-v:8b",
         "llama3.2-vision:90b",
         "llava-llama3:8b",
         "llama4:16x17b", # Not the biggest one but this one is at least marginally supported. But if you do have a datacenter in your basement then go ahead and user llama4:128x17b too
@@ -79,7 +79,7 @@ def good_models():
         "moondream:1.8b",
         "mistral-small3.1:24b",
         "bakllava:7b",
-        # "llava-phi3:3.8b"
+        "llava-phi3:3.8b"
     ]
 def multiple_describe_image(image_path):
     models = good_models() # Use ALL installed models that self-report themselves to work with images.
