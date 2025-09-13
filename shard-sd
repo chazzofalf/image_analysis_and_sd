@@ -1,0 +1,334 @@
+#!/bin/bash
+# "ShaRD SD" (SRD - Simple Reverse Diffusion for Stable Diffusion) 
+DEV_MODE=0 # 0 means YES! 1 means No.
+ram_warning() 
+{
+    cat <<EOX
+NOTICE - A word to the wise: 
+    A machine with a lot of VRAM/RAM is absolutely necessary for this project.
+    More than 64G are required to be safe.
+    You might get away with trying it with 32G. YMMV
+    Don't say that you haven't been warned.
+    Author: Charles T. Montgomery (@chazzofalf)
+    © 2025
+EOX
+}
+check_for_virtual_environment()
+{
+    
+    if [ -e ".venv" ] && [ -d ".venv" ] ; then
+        return 0
+    fi
+    if [ ! -d ".venv" ] ; then
+        rm .venv
+    fi
+    return 1
+}
+check_for_ollama()
+{
+    if command -v ollama ; then
+        return 0
+    fi
+    return 1
+}
+check_for_biggemma()
+{
+    if echo 'Hello.' || ollama run biggemma3 2>&1 /dev/null ; then
+        return 0
+    fi
+    return 1
+}
+dev_mode()
+{
+    return $DEV_MODE
+}
+create_virtual_environment()
+{
+    if command -v python3.13 ; then
+        python3.13 -m venv --upgrade-deps .venv
+        . .venv/bin/activate
+        pip install -r requirements.txt
+    fi
+}
+check_for_python_three_thirteen()
+{
+    if command -v python3.13 ; then
+        return 0
+    fi
+    return 1
+}
+check_and_create_virtual_environment()
+{
+    if dev_mode ; then
+        if ! check_for_virtual_environment ; then
+            create_virtual_environment
+        else
+            . .venv/bin/activate
+        fi
+    fi
+}
+do_check_for_critical_prereqs()
+{
+    if check_for_python_three_thirteen ; then
+        if check_for_ollama ; then
+            return 0
+        fi
+        return 1
+    fi
+    return 2
+}
+do_ollama_error()
+{
+    cat  <<'XEOLX'
+******************************************************************************
+Ollama and Gemma Setup Instructions - Required for this Tool
+******************************************************************************
+
+This tool requires Ollama and the Gemma 3B/7B/27B model to function correctly.
+Ollama is a tool that lets you run large language models locally.
+
+**Important:** This process may take some time, especially when downloading the model.
+Ensure you have a stable internet connection and sufficient disk space.
+
+---
+
+**1. Checking System Requirements:**
+
+* **Operating System:** Ollama supports macOS, Linux, and Windows (preview).
+* **Disk Space:** The Gemma 27B model requires approximately 50GB of disk space. Gemma 7B needs about 15GB. Gemma 3B needs about 4GB.  Ensure you have enough free space before proceeding.
+* **RAM:**  While Ollama can run with limited RAM, performance will be significantly better with at least 8GB (more is recommended for the 7B and 27B models).
+
+---
+
+**2. Installing Ollama:**
+
+**A. macOS:**
+
+1. **Open Terminal:** Launch the Terminal application.
+2. **Install Ollama:** Run the following command:
+   curl -fsSL https://ollama.com/install.sh | sh
+3. **Restart Terminal:** Close and reopen your Terminal to ensure the changes are applied.
+
+**B. Linux:**
+
+1. **Open Terminal:** Launch the Terminal application.
+2. **Install Ollama:** Run the following command:
+   curl -fsSL https://ollama.com/install.sh | sh
+3. **Restart Terminal:** Close and reopen your Terminal to ensure the changes are applied.
+
+**C. Windows:**
+
+1. **Download the Installer:**  Go to https://ollama.com/download/windows and download the installer.
+2. **Run the Installer:** Double-click the downloaded installer and follow the on-screen instructions.
+3. **Restart Command Prompt/PowerShell:** Close and reopen any Command Prompt or PowerShell windows to ensure the changes are applied.
+
+**3. Downloading the Gemma Model:**
+
+Once Ollama is installed, you can download the Gemma model.  Open your terminal or command prompt and run one of the following commands, depending on which model size you prefer:
+
+* **Gemma 3B:** `ollama pull gemma:3b`
+* **Gemma 7B:** `ollama pull gemma:7b`
+* **Gemma 27B:** `ollama pull gemma:27b`
+
+This process will download the model files and store them on your system. It may take a significant amount of time (minutes to hours) depending on your internet connection and model size.
+
+**4. Verifying the Installation:**
+
+After the download is complete, you can verify that Ollama and Gemma are working correctly. Run the following command:
+
+`ollama run gemma:27b "Hello, world!"`  (Replace `gemma:27b` with the model you downloaded)
+
+This will run the Gemma model and print a response to the prompt "Hello, world!". If you see a response, the installation was successful!
+
+---
+
+**5. Troubleshooting:**
+
+* **"ollama command not found":** This usually means that Ollama is not in your system's PATH. Restarting your terminal often fixes this.  If it doesn't, you may need to manually add the Ollama installation directory to your PATH environment variable.
+* **Download Errors:**  Check your internet connection. If the download continues to fail, try again later.
+* **Out of Memory Errors:** If you're running a large model (7B or 27B) and encounter out-of-memory errors, try closing other applications or reducing the model size.
+* **Slow Performance:**  Performance will be slower on systems with limited RAM or slower CPUs.
+
+---
+
+**6. Further Assistance:**
+
+For more detailed instructions and troubleshooting tips, please refer to the official Ollama documentation:
+
+https://ollama.com/docs
+
+You can also find help and support from the Ollama community:
+
+https://github.com/jmorganca/ollama     
+XEOLX
+}
+do_python_three_thirteen_error()
+{
+    cat <<'XEOLX'
+******************************************************************************
+Python 3.13 Installation Instructions - Required for this Tool
+******************************************************************************
+
+This tool requires Python 3.13 to function correctly. If you do not have it
+installed, please follow the instructions below for your operating system.
+
+**Important:**  Make sure you are installing Python *3.13* specifically.  Older
+versions will likely not work.
+
+---
+
+**1. Checking Your Current Python Version:**
+
+First, let's check if you already have Python installed, and if so, what version.
+Open your terminal or command prompt and run:
+
+   python3 --version  (or just `python --version` on some systems)
+
+If this command returns "Python 3.13.x" (where x is a number), you're all set!
+If it returns a different version, or "command not found," proceed with the
+installation instructions below.
+
+---
+
+**2. Installation Instructions:**
+
+**A. Linux (Debian/Ubuntu):**
+
+1. **Update your package list:**
+   sudo apt update
+
+2. **Install Python 3.13:**
+   sudo apt install python3.13
+
+3. **Verify the installation:**
+   python3.13 --version
+
+**B. Linux (Fedora/CentOS/RHEL):**
+
+1. **Enable the EPEL repository (if not already enabled):**
+   sudo dnf install epel-release
+
+2. **Install Python 3.13:**
+   sudo dnf install python3.13
+
+3. **Verify the installation:**
+   python3.13 --version
+
+**C. macOS:**
+
+   The easiest way to install Python 3.13 on macOS is using Homebrew:
+
+   1. **If you don't have Homebrew, install it:**
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+   2. **Install Python 3.13:**
+      brew install python@3.13
+
+   3. **Verify the installation:**
+      python3.13 --version
+
+   **Important macOS Note:** macOS often comes with an older version of Python pre-installed.  The `brew install` command will install Python 3.13 alongside it.  You'll need to specifically use `python3.13` when running your scripts.
+
+**D. Windows:**
+
+1. **Download the Python 3.13 installer:**
+   Go to https://www.python.org/downloads/windows/ and download the Windows installer for Python 3.13.  Choose the appropriate installer for your system (32-bit or 64-bit).
+
+2. **Run the installer:**
+   - **Important:**  Make sure to check the box that says "Add Python 3.13 to PATH" during the installation process. This will allow you to run Python from the command prompt.
+   - It's recommended to choose the "Customize installation" option to have more control.
+
+3. **Verify the installation:**
+   Open a new command prompt and run:
+   python3.13 --version  (or just `python --version` if it was added to PATH correctly)
+
+---
+
+**3. Troubleshooting:**
+
+* **"command not found" or "python3.13 not recognized":**  This usually means Python 3.13 is not in your system's PATH.  If you're on Windows, double-check that you selected the "Add Python 3.13 to PATH" option during installation.  On Linux/macOS, you might need to manually add the Python 3.13 installation directory to your PATH environment variable.
+* **Permission errors:**  If you encounter permission errors during installation, try using `sudo` (on Linux/macOS) before the installation command.
+* **Conflicting Python versions:** If you have multiple Python versions installed, be sure to use `python3.13` explicitly when running your scripts.
+
+---
+
+**4. Further Assistance:**
+
+If you're still having trouble, please consult the official Python documentation:
+
+https://docs.python.org/3.13/
+
+or search for solutions online specific to your operating system and the error message you're encountering.      
+XEOLX
+}
+do_print_error()
+{
+    "$1" 3>&1 1>&2 2>&3 3>&-
+}
+do_setup()
+{
+    do_check_for_critical_prereqs ; reqretcode=$?
+    if [ $reqretcode -eq 0 ] ; then
+        do_setup_soft_prereqs
+        SCRIPT_DIR="$(dirname "$(readlink -f "$0")")" 
+        pushd "${SCRIPT_DIR}" 
+        check_and_create_virtual_environment
+        popd    
+    elif [ $reqretcode -eq 1 ] ; then
+        do_print_error do_ollama_error
+    elif [ $reqretcode -eq 2 ] ; then
+        do_print_error do_python_three_thirteen_error
+    fi
+    return $reqretcode
+}
+do_check_and_install_for_gemma3_27b()
+{
+    if ! ollama run gemma3:27b -- --prompt 'Hello there.' ; then
+        ollama pull gemma3:27b
+    fi
+}
+do_check_and_install_for_biggemma3()
+{
+    if ! ollama run biggemma3:latest -- --prompt 'Hello there.' ; then
+        SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+        pushd "${SCRIPT_DIR}/biggemma3"
+        ./biggemma3.sh
+        popd
+    fi
+}
+do_setup_soft_prereqs()
+{
+    
+    do_check_and_install_for_gemma3_27b
+    do_check_and_install_for_biggemma3
+}
+execute()
+{
+    if dev_mode ; then
+        execute_dev_mode "$@"
+    else
+        execute_prod_mode "$@"
+    fi
+}
+execute_dev_mode()
+{
+    SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+    python "${SCRIPT_DIR}/simple_reverse_diffusion.py" "$@"
+}
+execute_prod_mode()
+{
+    python -m shard_sd "$@"
+}
+main()
+{
+
+    ram_warning
+    do_setup ; setup_retcode=$?
+    if [ $setup_retcode -eq 0 ] ; then
+        execute "$@"
+    fi
+    return $setup_retcode
+
+}
+main "$@" ; error_code=$?
+exit $error_code
