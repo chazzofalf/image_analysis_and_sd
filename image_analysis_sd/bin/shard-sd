@@ -1,6 +1,6 @@
 #!/bin/bash
 # "ShaRD SD" (SRD - Simple Reverse Diffusion for Stable Diffusion) 
-DEV_MODE=0 # 0 means YES! 1 means No.
+DEV_MODE=1 # 0 means YES! 1 means No.
 ram_warning() 
 {
     cat <<EOX
@@ -63,7 +63,7 @@ check_and_create_virtual_environment()
         if ! check_for_virtual_environment ; then
             create_virtual_environment
         else
-            . .venv/bin/activate
+            pass # Should already be in the virtual environment
         fi
     fi
 }
@@ -317,7 +317,7 @@ execute_dev_mode()
 }
 execute_prod_mode()
 {
-    python -m shard_sd "$@"
+    python -m image_analysis_sd "$@"
 }
 main()
 {

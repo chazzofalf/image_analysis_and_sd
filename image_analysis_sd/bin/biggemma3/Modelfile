@@ -1,0 +1,6 @@
+FROM gemma3:27b
+
+# Increase the maximum context size to allow large inputs.
+# The value is in tokens; adjust as needed for your use case.
+PARAMETER num_ctx 4294967296
+
