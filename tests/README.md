@@ -29,7 +29,7 @@ Below you will find a concise summary for every test case in the repository, tog
 
 | Run | Description | Instructions | Images |
 |-----|-------------|--------------|--------|
-| `run/1` | `run/1/description.md` | `run/1/generated_stable_diffusion_instructions.md` | ![run1‑0](test_1/life_of_zethana_the_favored_one_multistories_test/run/1/stable_diffusion_runs/1.png) ![run1‑1](test1/test_1/life_of_zethana_the_favored_one_multistories_test/run/1/stable_diffusion_runs/2.png) ![run1‑2](test_1/life_of_zethana_the_favored_one_multistories_test/run/1/stable_diffusion_runs/3.png) |
+| `run/1` | `run/1/description.md` | `run/1/generated_stable_diffusion_instructions.md` | ![run1‑0](test_1/life_of_zethana_the_favored_one_multistories_test/run/1/stable_diffusion_runs/1.png) ![run1‑1](test_1/life_of_zethana_the_favored_one_multistories_test/run/1/stable_diffusion_runs/2.png) ![run1‑2](test_1/life_of_zethana_the_favored_one_multistories_test/run/1/stable_diffusion_runs/3.png) |
 | `run/2` | `run/2/description.md` | `run/2/generated_stable_diffusion_instructions.md` | ![run2‑0](test_1/life_of_zethana_the_favored_one_multistories_test/run/2/stable_diffusion_runs/0.png) ![run2‑1](test_1/life_of_zethana_the_favored_one_multistories_test/run/2/stable_diffusion_runs/1.png) ![run2‑2](test_1/life_of_zethana_the_favored_one_multistories_test/run/2/stable_diffusion_runs/2.png) |
 | `run/3` | `run/3/description.md` | `run/3/generated_stable_diffusion_instructions.md` | ![run3‑0](test_1/life_of_zethana_the_favored_one_multistories_test/run/3/stable_diffusion_runs/1.png) ![run3‑1](test_1/life_of_zethana_the_favored_one_multistories_test/run/3/stable_diffusion_runs/2.png) ![run3‑2](test_1/life_of_zethana_the_favored_one_multistories_test/run/3/stable_diffusion_runs/3.png) |
 
