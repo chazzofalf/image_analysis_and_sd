@@ -23,6 +23,8 @@ This tool leverages Ollama models to describe images and generate stable diffusi
 
 ## Installation
 
+**Installation via pip:** The module can be installed with `pip install image-analysis-sd` on Python 3.13.
+
 1.  Clone the repository:
     ```bash
     git clone https://github.com/chazzofalf/image_analysis_and_sd
